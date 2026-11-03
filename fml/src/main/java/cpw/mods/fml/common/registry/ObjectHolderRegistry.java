@@ -51,8 +51,8 @@ public enum ObjectHolderRegistry {
                 scanTarget(classModIds, classCache, className, annotationTarget, value, isClass, false);
             }
         }
-        scanTarget(classModIds, classCache, "net.minecraft.init.Blocks", null, "minecraft", true, true);
-        scanTarget(classModIds, classCache, "net.minecraft.init.Items", null, "minecraft", true, true);
+//        scanTarget(classModIds, classCache, "net.minecraft.init.Blocks", null, "minecraft", true, true);
+//        scanTarget(classModIds, classCache, "net.minecraft.init.Items", null, "minecraft", true, true);
         FMLLog.info("Found %d ObjectHolder annotations", objectHolders.size());
     }
 

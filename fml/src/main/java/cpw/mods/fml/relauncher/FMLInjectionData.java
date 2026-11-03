@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import me.alphamode.launchhack.LaunchClassLoaderDelegate;
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import org.apache.logging.log4j.Level;
 
 public class FMLInjectionData
@@ -35,7 +35,7 @@ public class FMLInjectionData
 
     public static List<String> containers = new ArrayList<String>();
 
-    static void build(File mcHome, LaunchClassLoaderDelegate classLoader)
+    static void build(File mcHome, LaunchClassLoader classLoader)
     {
         minecraftHome = mcHome;
         InputStream stream = classLoader.getResourceAsStream("fmlversion.properties");

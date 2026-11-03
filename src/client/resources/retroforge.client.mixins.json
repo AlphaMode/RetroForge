@@ -24,6 +24,7 @@
     "GuiTextRenderStateMixin",
     "LoadingOverlayMixin",
     "RenderSystemMixin",
-    "StagedVertexBufferDrawMixin"
+    "StagedVertexBufferDrawMixin",
+    "TiledBlitRenderStateMixin"
   ]
 }

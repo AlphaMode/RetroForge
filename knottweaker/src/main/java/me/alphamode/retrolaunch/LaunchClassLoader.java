@@ -2,6 +2,9 @@ package me.alphamode.retrolaunch;
 
 import net.fabricmc.loader.impl.launch.FabricLauncher;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,5 +40,25 @@ public class LaunchClassLoader {
 
     public void addTransformerExclusion(String toExclude) {
         transformerExceptions.add(toExclude);
+    }
+
+    public InputStream getResourceAsStream(String name) {
+        return launcher.getResourceAsStream(name);
+    }
+
+    public ClassLoader getClassLoader() {
+        return launcher.getTargetClassLoader();
+    }
+
+    public void addToClassPath(Path path) {
+        launcher.addToClassPath(path);
+    }
+
+    public Class<?> loadClass(String name) throws ClassNotFoundException {
+        return launcher.loadIntoTarget(name);
+    }
+
+    public byte[] getClassBytes(String name) throws IOException {
+        return launcher.getClassByteArray(name, false);
     }
 }

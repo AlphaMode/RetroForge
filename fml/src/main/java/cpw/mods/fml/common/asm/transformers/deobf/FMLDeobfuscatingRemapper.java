@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import me.alphamode.launchhack.LaunchClassLoaderDelegate;
-
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import org.apache.logging.log4j.Level;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.commons.Remapper;
@@ -58,7 +57,7 @@ public class FMLDeobfuscatingRemapper extends Remapper {
     private Map<String,Map<String,String>> fieldNameMaps;
     private Map<String,Map<String,String>> methodNameMaps;
 
-    private LaunchClassLoaderDelegate classLoader;
+    private LaunchClassLoader classLoader;
 
 
     private static final boolean DEBUG_REMAPPING = Boolean.parseBoolean(System.getProperty("fml.remappingDebug", "false"));
@@ -109,7 +108,7 @@ public class FMLDeobfuscatingRemapper extends Remapper {
         fieldNameMaps = Maps.newHashMapWithExpectedSize(rawFieldMaps.size());
 
     }
-    public void setup(File mcDir, LaunchClassLoaderDelegate classLoader, String deobfFileName)
+    public void setup(File mcDir, LaunchClassLoader classLoader, String deobfFileName)
     {
         this.classLoader = classLoader;
         try

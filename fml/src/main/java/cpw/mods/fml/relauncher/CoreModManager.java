@@ -30,7 +30,10 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
-import me.alphamode.launchhack.LaunchClassLoaderDelegate;
+import cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker;
+import me.alphamode.retrolaunch.ITweaker;
+import me.alphamode.retrolaunch.Launch;
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import net.fabricmc.loader.api.FabricLoader;
 
 import org.apache.logging.log4j.Level;
@@ -67,7 +70,7 @@ public class CoreModManager {
     private static List<String> reparsedCoremods = Lists.newArrayList();
     private static List<String> accessTransformers = Lists.newArrayList();
 
-    private static class FMLPluginWrapper/* implements ITweaker*/ {
+    private static class FMLPluginWrapper implements ITweaker {
         public final String name;
         public final IFMLLoadingPlugin coreModInstance;
         public final List<String> predepends;
@@ -90,14 +93,14 @@ public class CoreModManager {
             return String.format("%s {%s}", this.name, this.predepends);
         }
 
-//        @Override
+        @Override
         public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile)
         {
             // NO OP
         }
 
-//        @Override
-        public void injectIntoClassLoader(LaunchClassLoaderDelegate classLoader)
+        @Override
+        public void injectIntoClassLoader(LaunchClassLoader classLoader)
         {
             FMLRelaunchLog.fine("Injecting coremod %s {%s} class transformers", name, coreModInstance.getClass().getName());
             if (coreModInstance.getASMTransformerClass() != null) for (String transformer : coreModInstance.getASMTransformerClass())
@@ -144,13 +147,13 @@ public class CoreModManager {
             }
         }
 
-//        @Override
+        @Override
         public String getLaunchTarget()
         {
             return "";
         }
 
-//        @Override
+        @Override
         public String[] getLaunchArguments()
         {
             return new String[0];
@@ -158,7 +161,7 @@ public class CoreModManager {
 
     }
 
-    public static void handleLaunch(File mcDir, LaunchClassLoaderDelegate classLoader, FabricLoader tweaker)
+    public static void handleLaunch(File mcDir, LaunchClassLoader classLoader, FMLTweaker tweaker)
     {
         CoreModManager.mcDir = mcDir;
         CoreModManager.tweaker = tweaker;
@@ -181,7 +184,7 @@ public class CoreModManager {
             FMLRelaunchLog.fine("Enabling runtime deobfuscation");
         }
 
-//        tweaker.injectCascadingTweak("cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker");
+        tweaker.injectCascadingTweak("cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker");
         try
         {
             classLoader.registerTransformer("cpw.mods.fml.common.asm.transformers.PatchingTransformer");
@@ -220,7 +223,7 @@ public class CoreModManager {
 
     }
 
-    private static void discoverCoreMods(File mcDir, LaunchClassLoaderDelegate classLoader)
+    private static void discoverCoreMods(File mcDir, LaunchClassLoader classLoader)
     {
         ModListHelper.parseModList(mcDir);
         FMLRelaunchLog.fine("Discovering coremods");
@@ -390,7 +393,7 @@ public class CoreModManager {
 
     private static Method ADDURL;
 
-    private static void handleCascadingTweak(File coreMod, JarFile jar, String cascadedTweaker, LaunchClassLoaderDelegate classLoader, Integer sortingOrder)
+    private static void handleCascadingTweak(File coreMod, JarFile jar, String cascadedTweaker, LaunchClassLoader classLoader, Integer sortingOrder)
     {
         try
         {
@@ -448,13 +451,13 @@ public class CoreModManager {
         return reparsedCoremods;
     }
 
-    private static FMLPluginWrapper loadCoreMod(LaunchClassLoaderDelegate classLoader, String coreModClass, File location)
+    private static FMLPluginWrapper loadCoreMod(LaunchClassLoader classLoader, String coreModClass, File location)
     {
         String coreModName = coreModClass.substring(coreModClass.lastIndexOf('.') + 1);
         try
         {
             FMLRelaunchLog.fine("Instantiating coremod class %s", coreModName);
-//            classLoader.addTransformerExclusion(coreModClass);
+            classLoader.addTransformerExclusion(coreModClass);
             Class<?> coreModClazz = Class.forName(coreModClass, true, classLoader.getClassLoader());
             Name coreModNameAnn = coreModClazz.getAnnotation(Name.class);
             if (coreModNameAnn != null && !Strings.isNullOrEmpty(coreModNameAnn.value()))
@@ -484,7 +487,7 @@ public class CoreModManager {
             {
                 for (String st : trExclusions.value())
                 {
-//                    classLoader.addTransformerExclusion(st);
+                    classLoader.addTransformerExclusion(st);
                 }
             }
             DependsOn deplist = coreModClazz.getAnnotation(DependsOn.class);
@@ -565,84 +568,84 @@ public class CoreModManager {
         }
     }
 
-    public static void injectTransformers(LaunchClassLoaderDelegate classLoader)
+    public static void injectTransformers(LaunchClassLoader classLoader)
     {
 
-//        Launch.blackboard.put("fml.deobfuscatedEnvironment", deobfuscatedEnvironment); // Always true in lastest versions
-//        tweaker.injectCascadingTweak("cpw.mods.fml.common.launcher.FMLDeobfTweaker");
-//        tweakSorting.put("cpw.mods.fml.common.launcher.FMLDeobfTweaker", Integer.valueOf(1000));
+        Launch.getBlackboard().put("fml.deobfuscatedEnvironment", deobfuscatedEnvironment); // Always true in lastest versions
+        tweaker.injectCascadingTweak("cpw.mods.fml.common.launcher.FMLDeobfTweaker");
+        tweakSorting.put("cpw.mods.fml.common.launcher.FMLDeobfTweaker", Integer.valueOf(1000));
     }
 
-//    public static void injectCoreModTweaks(FMLInjectionAndSortingTweaker fmlInjectionAndSortingTweaker)
-//    {
-//        @SuppressWarnings("unchecked")
-//        List<ITweaker> tweakers = (List<ITweaker>) Launch.blackboard.get("Tweaks");
-//        // Add the sorting tweaker first- it'll appear twice in the list
-//        tweakers.add(0, fmlInjectionAndSortingTweaker);
-//        for (FMLPluginWrapper wrapper : loadPlugins)
-//        {
-//            tweakers.add(wrapper);
-//        }
-//    }
+    public static void injectCoreModTweaks(FMLInjectionAndSortingTweaker fmlInjectionAndSortingTweaker)
+    {
+        @SuppressWarnings("unchecked")
+        List<ITweaker> tweakers = (List<ITweaker>) Launch.getBlackboard().get("Tweaks");
+        // Add the sorting tweaker first- it'll appear twice in the list
+        tweakers.add(0, fmlInjectionAndSortingTweaker);
+        for (FMLPluginWrapper wrapper : loadPlugins)
+        {
+            tweakers.add(wrapper);
+        }
+    }
 
     private static Map<String,Integer> tweakSorting = Maps.newHashMap();
 
-//    public static void sortTweakList()
-//    {
-//        @SuppressWarnings("unchecked")
-//        List<ITweaker> tweakers = (List<ITweaker>) Launch.blackboard.get("Tweaks");
-//        // Basically a copy of Collections.sort pre 8u20, optimized as we know we're an array list.
-//        // Thanks unhelpful fixer of http://bugs.java.com/view_bug.do?bug_id=8032636
-//        ITweaker[] toSort = tweakers.toArray(new ITweaker[tweakers.size()]);
-//        Arrays.sort(toSort, new Comparator<ITweaker>() {
-//            @Override
-//            public int compare(ITweaker o1, ITweaker o2)
-//            {
-//                Integer first = null;
-//                Integer second = null;
-//                if (o1 instanceof FMLInjectionAndSortingTweaker)
-//                {
-//                    first = Integer.MIN_VALUE;
-//                }
-//                if (o2 instanceof FMLInjectionAndSortingTweaker)
-//                {
-//                    second = Integer.MIN_VALUE;
-//                }
-//
-//                if (o1 instanceof FMLPluginWrapper)
-//                {
-//                    first = ((FMLPluginWrapper) o1).sortIndex;
-//                }
-//                else if (first == null)
-//                {
-//                    first = tweakSorting.get(o1.getClass().getName());
-//                }
-//                if (o2 instanceof FMLPluginWrapper)
-//                {
-//                    second = ((FMLPluginWrapper) o2).sortIndex;
-//                }
-//                else if (second == null)
-//                {
-//                    second = tweakSorting.get(o2.getClass().getName());
-//                }
-//                if (first == null)
-//                {
-//                    first = 0;
-//                }
-//                if (second == null)
-//                {
-//                    second = 0;
-//                }
-//
-//                return Ints.saturatedCast((long)first - (long)second);
-//            }
-//        });
-//        // Basically a copy of Collections.sort, optimized as we know we're an array list.
-//        // Thanks unhelpful fixer of http://bugs.java.com/view_bug.do?bug_id=8032636
-//        for (int j = 0; j < toSort.length; j++) {
-//            tweakers.set(j, toSort[j]);
-//        }
-//    }
+    public static void sortTweakList()
+    {
+        @SuppressWarnings("unchecked")
+        List<ITweaker> tweakers = (List<ITweaker>) Launch.getBlackboard().get("Tweaks");
+        // Basically a copy of Collections.sort pre 8u20, optimized as we know we're an array list.
+        // Thanks unhelpful fixer of http://bugs.java.com/view_bug.do?bug_id=8032636
+        ITweaker[] toSort = tweakers.toArray(new ITweaker[tweakers.size()]);
+        Arrays.sort(toSort, new Comparator<ITweaker>() {
+            @Override
+            public int compare(ITweaker o1, ITweaker o2)
+            {
+                Integer first = null;
+                Integer second = null;
+                if (o1 instanceof FMLInjectionAndSortingTweaker)
+                {
+                    first = Integer.MIN_VALUE;
+                }
+                if (o2 instanceof FMLInjectionAndSortingTweaker)
+                {
+                    second = Integer.MIN_VALUE;
+                }
+
+                if (o1 instanceof FMLPluginWrapper)
+                {
+                    first = ((FMLPluginWrapper) o1).sortIndex;
+                }
+                else if (first == null)
+                {
+                    first = tweakSorting.get(o1.getClass().getName());
+                }
+                if (o2 instanceof FMLPluginWrapper)
+                {
+                    second = ((FMLPluginWrapper) o2).sortIndex;
+                }
+                else if (second == null)
+                {
+                    second = tweakSorting.get(o2.getClass().getName());
+                }
+                if (first == null)
+                {
+                    first = 0;
+                }
+                if (second == null)
+                {
+                    second = 0;
+                }
+
+                return Ints.saturatedCast((long)first - (long)second);
+            }
+        });
+        // Basically a copy of Collections.sort, optimized as we know we're an array list.
+        // Thanks unhelpful fixer of http://bugs.java.com/view_bug.do?bug_id=8032636
+        for (int j = 0; j < toSort.length; j++) {
+            tweakers.set(j, toSort[j]);
+        }
+    }
 
     public static List<String> getAccessTransformers()
     {

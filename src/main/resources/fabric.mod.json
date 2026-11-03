@@ -14,7 +14,6 @@
       "me.alphamode.retroforge.client.RetroforgeClient"
     ],
     "main": [
-      "me.alphamode.retroforge.Retroforge"
     ],
     "preLaunch": [
       "me.alphamode.retroforge.launch.RetroForgePreLaunch"

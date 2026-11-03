@@ -14,33 +14,32 @@ package cpw.mods.fml.relauncher;
 
 import java.io.File;
 
-import me.alphamode.launchhack.LaunchClassLoaderDelegate;
-import net.fabricmc.loader.api.FabricLoader;
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import org.apache.logging.log4j.Level;
 
 import com.google.common.base.Throwables;
 
-//import cpw.mods.fml.common.launcher.FMLTweaker;
+import cpw.mods.fml.common.launcher.FMLTweaker;
 
 public class FMLLaunchHandler
 {
     private static FMLLaunchHandler INSTANCE;
     static Side side;
-    private LaunchClassLoaderDelegate classLoader;
-    private FabricLoader tweaker;
+    private LaunchClassLoader classLoader;
+    private FMLTweaker tweaker;
     private File minecraftHome;
 
-    public static void configureForClientLaunch(LaunchClassLoaderDelegate loader, FabricLoader tweaker)
+    public static void configureForClientLaunch(LaunchClassLoader loader, FMLTweaker tweaker)
     {
         instance(loader, tweaker).setupClient();
     }
 
-    public static void configureForServerLaunch(LaunchClassLoaderDelegate loader, FabricLoader tweaker)
+    public static void configureForServerLaunch(LaunchClassLoader loader, FMLTweaker tweaker)
     {
         instance(loader, tweaker).setupServer();
     }
 
-    private static FMLLaunchHandler instance(LaunchClassLoaderDelegate launchLoader, FabricLoader tweaker)
+    private static FMLLaunchHandler instance(LaunchClassLoader launchLoader, FMLTweaker tweaker)
     {
         if (INSTANCE == null)
         {
@@ -50,15 +49,15 @@ public class FMLLaunchHandler
 
     }
 
-    private FMLLaunchHandler(LaunchClassLoaderDelegate launchLoader, FabricLoader tweaker)
+    private FMLLaunchHandler(LaunchClassLoader launchLoader, FMLTweaker tweaker)
     {
         this.classLoader = launchLoader;
         this.tweaker = tweaker;
-        this.minecraftHome = tweaker.getGameDir().toFile();
-//        this.classLoader.addClassLoaderExclusion("cpw.mods.fml.relauncher.");
-//        this.classLoader.addClassLoaderExclusion("net.minecraftforge.classloading.");
-//        this.classLoader.addTransformerExclusion("cpw.mods.fml.common.asm.transformers.deobf.");
-//        this.classLoader.addTransformerExclusion("cpw.mods.fml.common.patcher.");
+        this.minecraftHome = tweaker.getGameDir();
+        this.classLoader.addClassLoaderExclusion("cpw.mods.fml.relauncher.");
+        this.classLoader.addClassLoaderExclusion("net.minecraftforge.classloading.");
+        this.classLoader.addTransformerExclusion("cpw.mods.fml.common.asm.transformers.deobf.");
+        this.classLoader.addTransformerExclusion("cpw.mods.fml.common.patcher.");
     }
 
     private void setupClient()

@@ -6,8 +6,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-import me.alphamode.launchhack.IClassTransformer;
-
+import me.alphamode.retrolaunch.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;

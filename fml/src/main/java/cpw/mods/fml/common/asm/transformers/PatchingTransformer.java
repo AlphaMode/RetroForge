@@ -1,7 +1,7 @@
 package cpw.mods.fml.common.asm.transformers;
 
-import me.alphamode.launchhack.IClassTransformer;
 import cpw.mods.fml.common.patcher.ClassPatchManager;
+import me.alphamode.retrolaunch.IClassTransformer;
 
 public class PatchingTransformer implements IClassTransformer {
     @Override

@@ -13,7 +13,7 @@ import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.regex.Pattern;
 
-import me.alphamode.launchhack.LaunchClassLoaderDelegate;
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import org.apache.commons.compress.compressors.lzma.LZMACompressorInputStream;
 import org.apache.commons.compress.java.util.jar.Pack200;
 import org.apache.logging.log4j.Level;
@@ -53,7 +53,7 @@ public class ClassPatchManager {
     }
 
 
-    public byte[] getPatchedResource(String name, String mappedName, LaunchClassLoaderDelegate loader) throws IOException
+    public byte[] getPatchedResource(String name, String mappedName, LaunchClassLoader loader) throws IOException
     {
         byte[] rawClassBytes = loader.getClassBytes(name);
         return applyPatch(name, mappedName, rawClassBytes);

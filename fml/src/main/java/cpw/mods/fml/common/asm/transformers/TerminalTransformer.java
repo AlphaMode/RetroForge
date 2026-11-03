@@ -1,10 +1,10 @@
 package cpw.mods.fml.common.asm.transformers;
 
+import me.alphamode.retrolaunch.IClassTransformer;
 import org.objectweb.asm.*;
 
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 import cpw.mods.fml.relauncher.FMLSecurityManager.ExitTrappedException;
-import me.alphamode.launchhack.IClassTransformer;
 
 public class TerminalTransformer implements IClassTransformer
 {

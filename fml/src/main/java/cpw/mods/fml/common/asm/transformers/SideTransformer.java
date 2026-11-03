@@ -15,8 +15,7 @@ package cpw.mods.fml.common.asm.transformers;
 import java.util.Iterator;
 import java.util.List;
 
-import me.alphamode.launchhack.IClassTransformer;
-
+import me.alphamode.retrolaunch.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Type;

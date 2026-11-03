@@ -100,8 +100,8 @@ public abstract class LoadingOverlayMixin {
         return ARGB.color(255, Integer.decode(getString(name, "0x" + Integer.toString(def, 16).toUpperCase())));
     }
 
-    @Overwrite
-    public void tick() {
+//    @Overwrite
+//    public void tick() {
 //        if (this.fadeOutStart == -1L && this.reload.isDone() && this.isReadyToFadeOut()) {
 //            try {
 //                this.reload.checkExceptions();
@@ -116,8 +116,8 @@ public abstract class LoadingOverlayMixin {
 //                this.minecraft.gui.screen().init(window.getGuiScaledWidth(), window.getGuiScaledHeight());
 //            }
 //        }
-
-    }
+//
+//    }
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void initForgeData(CallbackInfo ci) {
