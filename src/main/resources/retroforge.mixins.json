@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.alphamode.retroforge.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "plugin": "recordrecoder.impl.RecordRecoder",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

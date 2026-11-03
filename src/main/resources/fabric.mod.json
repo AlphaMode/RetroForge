@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "retroforge",
+  "version": "${version}",
+  "name": "RetroForge",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/retroforge/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.alphamode.retroforge.client.RetroforgeClient"
+    ],
+    "main": [
+      "me.alphamode.retroforge.Retroforge"
+    ],
+    "preLaunch": [
+      "me.alphamode.retroforge.launch.RetroForgePreLaunch"
+    ],
+    "recordrecoder:register": [
+      "me.alphamode.retroforge.asm.RecordTransformer"
+    ]
+  },
+  "mixins": [
+    "retroforge.mixins.json",
+    {
+      "config": "retroforge.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "accessWidener": "retroforge.classtweaker",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*"
+  }
+}

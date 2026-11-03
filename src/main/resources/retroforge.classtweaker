@@ -1,0 +1,6 @@
+classTweaker v2 official
+
+accessible class net/minecraft/client/gui/render/GuiRenderer$Draw
+accessible class net/minecraft/client/renderer/state/gui/GuiRenderState$Node
+inject-interface net/minecraft/client/gui/GuiGraphicsExtractor me/alphamode/retroforge/client/api/extensions/GuiGraphicsExtractorExtension
+extend-enum net/minecraft/client/renderer/state/gui/GuiRenderState$TraverseRange PROJECTION
