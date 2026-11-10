@@ -18,7 +18,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
-import cpw.mods.fml.relauncher.FMLSecurityManager;
 
 public class FMLTweaker implements ITweaker {
     private File gameDir;

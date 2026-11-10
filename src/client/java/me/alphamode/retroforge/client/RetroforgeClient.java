@@ -1,7 +1,6 @@
 package me.alphamode.retroforge.client;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.Loader;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.Minecraft;
 

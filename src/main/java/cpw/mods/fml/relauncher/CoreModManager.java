@@ -17,9 +17,6 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,7 +31,6 @@ import cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker;
 import me.alphamode.retrolaunch.ITweaker;
 import me.alphamode.retrolaunch.Launch;
 import me.alphamode.retrolaunch.LaunchClassLoader;
-import net.fabricmc.loader.api.FabricLoader;
 
 import org.apache.logging.log4j.Level;
 

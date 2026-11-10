@@ -53,9 +53,12 @@ dependencies {
 
     implementation 'com.github.cputnam-a11y:RecordRecoder:v0.0.5'
 
-    implementation(project(":fml"))
-    implementation(project(":fakecraft"))
+//    implementation(project(":fml"))
+//    implementation(project(":fakecraft"))
     implementation(project(":knottweaker"))
+
+    implementation "net.fabricmc:mapping-io:${project.mappingio_version}"
+    implementation "net.fabricmc:tiny-remapper:${project.tinyremapper_version}"
 }
 
 processResources {

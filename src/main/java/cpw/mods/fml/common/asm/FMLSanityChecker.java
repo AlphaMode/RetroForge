@@ -29,7 +29,6 @@ import com.google.common.io.ByteStreams;
 
 import cpw.mods.fml.common.CertificateHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import cpw.mods.fml.common.patcher.ClassPatchManager;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.FMLRelaunchLog;

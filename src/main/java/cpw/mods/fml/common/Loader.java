@@ -29,7 +29,6 @@ import java.util.Set;
 
 import me.alphamode.retroforge.asm.FakeCraftRemapper;
 import me.alphamode.retrolaunch.Launch;
-import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import org.apache.logging.log4j.Level;
 
 import com.google.common.base.CharMatcher;

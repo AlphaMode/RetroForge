@@ -22,7 +22,6 @@ import java.util.Set;
 
 import me.alphamode.retrolaunch.IClassTransformer;
 import me.alphamode.retrolaunch.LaunchClassLoader;
-import net.fabricmc.loader.impl.launch.FabricLauncher;
 import net.fabricmc.loader.impl.util.UrlUtil;
 
 import com.google.common.collect.ImmutableList;
