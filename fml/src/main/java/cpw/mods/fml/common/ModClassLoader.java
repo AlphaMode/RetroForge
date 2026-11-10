@@ -20,6 +20,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
+import me.alphamode.retrolaunch.IClassTransformer;
+import me.alphamode.retrolaunch.LaunchClassLoader;
 import net.fabricmc.loader.impl.launch.FabricLauncher;
 import net.fabricmc.loader.impl.util.UrlUtil;
 
@@ -38,9 +40,9 @@ import cpw.mods.fml.common.discovery.ASMDataTable;
 public class ModClassLoader extends URLClassLoader
 {
     private static final List<String> STANDARD_LIBRARIES = ImmutableList.of("jinput.jar", "lwjgl.jar", "lwjgl_util.jar", "rt.jar");
-    private FabricLauncher mainClassLoader;
+    private LaunchClassLoader mainClassLoader;
 
-    public ModClassLoader(FabricLauncher parent) {
+    public ModClassLoader(LaunchClassLoader parent) {
         super(new URL[0], null);
         this.mainClassLoader = parent;
     }
@@ -54,11 +56,16 @@ public class ModClassLoader extends URLClassLoader
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException
     {
-        return mainClassLoader.getTargetClassLoader().loadClass(name);
+        return mainClassLoader.loadClass(name);
+    }
+
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        return super.findClass(name);
     }
 
     public File[] getParentSources() {
-        return mainClassLoader.getClassPath().stream().map(Path::toFile).toArray(File[]::new);
+        return mainClassLoader.getLauncher().getClassPath().stream().map(Path::toFile).toArray(File[]::new);
     }
 
     public List<String> getDefaultLibraries()
@@ -73,11 +80,10 @@ public class ModClassLoader extends URLClassLoader
 
     public ModAPITransformer addModAPITransformer(ASMDataTable dataTable)
     {
-//        mainClassLoader.registerTransformer("cpw.mods.fml.common.asm.transformers.ModAPITransformer");
-//        List<IClassTransformer> transformers = mainClassLoader.getTransformers();
-//        ModAPITransformer modAPI = (ModAPITransformer) transformers.get(transformers.size()-1);
-//        modAPI.initTable(dataTable);
-//        return modAPI;
-        return null;
+        mainClassLoader.registerTransformer("cpw.mods.fml.common.asm.transformers.ModAPITransformer");
+        List<IClassTransformer> transformers = mainClassLoader.getTransformers();
+        ModAPITransformer modAPI = (ModAPITransformer) transformers.get(transformers.size()-1);
+        modAPI.initTable(dataTable);
+        return modAPI;
     }
 }

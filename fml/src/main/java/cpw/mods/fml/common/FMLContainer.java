@@ -22,11 +22,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.storage.SaveHandler;
-import net.minecraft.world.storage.WorldInfo;
+import net.fakecraft.nbt.NBTBase;
+import net.fakecraft.nbt.NBTTagCompound;
+import net.fakecraft.nbt.NBTTagList;
+import net.fakecraft.world.storage.SaveHandler;
+import net.fakecraft.world.storage.WorldInfo;
 
 import org.apache.logging.log4j.Level;
 

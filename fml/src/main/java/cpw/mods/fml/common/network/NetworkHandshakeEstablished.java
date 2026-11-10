@@ -1,6 +1,6 @@
 package cpw.mods.fml.common.network;
 
-import net.minecraft.network.INetHandler;
+import net.fakecraft.network.INetHandler;
 import cpw.mods.fml.common.network.handshake.NetworkDispatcher;
 import cpw.mods.fml.relauncher.Side;
 

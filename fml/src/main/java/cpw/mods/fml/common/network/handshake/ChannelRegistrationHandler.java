@@ -3,7 +3,7 @@ package cpw.mods.fml.common.network.handshake;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import java.util.Set;
-import net.minecraft.network.NetworkManager;
+import net.fakecraft.network.NetworkManager;
 import org.apache.logging.log4j.Level;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableSet;

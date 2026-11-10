@@ -6,10 +6,10 @@ import java.util.EnumMap;
 
 import com.google.common.base.Throwables;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.Packet;
-import net.minecraft.tileentity.TileEntity;
+import net.fakecraft.entity.player.EntityPlayerMP;
+import net.fakecraft.network.INetHandler;
+import net.fakecraft.network.Packet;
+import net.fakecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.FMLOutboundHandler;

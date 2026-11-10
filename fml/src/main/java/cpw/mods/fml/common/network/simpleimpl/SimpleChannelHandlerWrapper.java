@@ -2,7 +2,7 @@ package cpw.mods.fml.common.network.simpleimpl;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.network.INetHandler;
+import net.fakecraft.network.INetHandler;
 
 import com.google.common.base.Preconditions;
 

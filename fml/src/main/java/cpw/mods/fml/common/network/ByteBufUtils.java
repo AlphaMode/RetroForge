@@ -1,9 +1,9 @@
 package cpw.mods.fml.common.network;
 
 import java.io.IOException;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
+import net.fakecraft.world.item.ItemInstance;
+import net.fakecraft.nbt.NBTTagCompound;
+import net.fakecraft.network.PacketBuffer;
 import org.apache.commons.lang3.Validate;
 
 import com.google.common.base.Charsets;
@@ -136,12 +136,12 @@ public class ByteBufUtils {
     }
 
     /**
-     * Write an {@link ItemStack} using minecraft compatible encoding.
+     * Write an {@link ItemInstance} using minecraft compatible encoding.
      *
      * @param to The buffer to write to
      * @param stack The itemstack to write
      */
-    public static void writeItemStack(ByteBuf to, ItemStack stack)
+    public static void writeItemStack(ByteBuf to, ItemInstance stack)
     {
         PacketBuffer pb = new PacketBuffer(to);
         try
@@ -155,12 +155,12 @@ public class ByteBufUtils {
     }
 
     /**
-     * Read an {@link ItemStack} from the byte buffer provided. It uses the minecraft encoding.
+     * Read an {@link ItemInstance} from the byte buffer provided. It uses the minecraft encoding.
      *
      * @param from The buffer to read from
      * @return The itemstack read
      */
-    public static ItemStack readItemStack(ByteBuf from)
+    public static ItemInstance readItemStack(ByteBuf from)
     {
         PacketBuffer pb = new PacketBuffer(from);
         try

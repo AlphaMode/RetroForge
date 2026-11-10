@@ -12,6 +12,6 @@ public class RetroforgeClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         FMLClientHandler.instance().beginMinecraftLoading(Minecraft.getInstance(), List.of(), Minecraft.getInstance().getResourceManager());
-        Loader.instance().loadMods();
+//        Loader.instance().loadMods();
     }
 }

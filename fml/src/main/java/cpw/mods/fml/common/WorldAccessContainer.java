@@ -14,13 +14,14 @@ package cpw.mods.fml.common;
 
 import java.util.Map;
 
-import net.minecraft.nbt.*;
-import net.minecraft.world.storage.SaveHandler;
-import net.minecraft.world.storage.WorldInfo;
+import net.fakecraft.nbt.NBTBase;
+import net.fakecraft.nbt.NBTTagCompound;
+import net.fakecraft.world.storage.SaveHandler;
+import net.fakecraft.world.storage.WorldInfo;
 
 
 public interface WorldAccessContainer
 {
     public NBTTagCompound getDataForWriting(SaveHandler handler, WorldInfo info);
-    public void readData(SaveHandler handler, WorldInfo info, Map<String,NBTBase> propertyMap, NBTTagCompound tag);
+    public void readData(SaveHandler handler, WorldInfo info, Map<String, NBTBase> propertyMap, NBTTagCompound tag);
 }

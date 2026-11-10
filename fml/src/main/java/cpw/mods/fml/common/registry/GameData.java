@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.fakecraft.world.item.Item;
+import net.fakecraft.world.level.block.Block;
+import net.fakecraft.world.item.ItemBlock;
+import net.fakecraft.world.item.ItemInstance;
 
 import org.apache.logging.log4j.Level;
 
@@ -76,7 +76,7 @@ public class GameData {
     @Deprecated
     public static final FMLControlledNamespacedRegistry<Item> itemRegistry = getItemRegistry();
 
-    private static Table<String, String, ItemStack> customItemStacks = HashBasedTable.create();
+    private static Table<String, String, ItemInstance> customItemStacks = HashBasedTable.create();
     private static Map<UniqueIdentifier, ModContainer> customOwners = Maps.newHashMap();
     private static GameData frozen;
 
@@ -192,15 +192,15 @@ public class GameData {
         return getMain().iBlockRegistry.containsKey(key) ? getMain().iBlockRegistry.getObject(key) : null;
     }
 
-    static ItemStack findItemStack(String modId, String name)
+    static ItemInstance findItemStack(String modId, String name)
     {
-        ItemStack is = customItemStacks.get(modId, name);
+        ItemInstance is = customItemStacks.get(modId, name);
         if (is == null)
         {
             Item i = findItem(modId, name);
             if (i != null)
             {
-                is = new ItemStack(i, 0 ,0);
+                is = new ItemInstance(i, 0 ,0);
             }
         }
         if (is == null)
@@ -208,13 +208,13 @@ public class GameData {
             Block b = findBlock(modId, name);
             if (b != null)
             {
-                is = new ItemStack(b, 0, Short.MAX_VALUE);
+                is = new ItemInstance(b, 0, Short.MAX_VALUE);
             }
         }
         return is;
     }
 
-    static void registerCustomItemStack(String name, ItemStack itemStack)
+    static void registerCustomItemStack(String name, ItemInstance itemStack)
     {
         customItemStacks.put(Loader.instance().activeModContainer().getModId(), name, itemStack);
     }

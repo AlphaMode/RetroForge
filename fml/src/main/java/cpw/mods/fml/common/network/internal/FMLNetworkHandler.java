@@ -19,12 +19,12 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.server.management.ServerConfigurationManager;
-import net.minecraft.world.World;
+import net.fakecraft.entity.Entity;
+import net.fakecraft.entity.player.EntityPlayer;
+import net.fakecraft.entity.player.EntityPlayerMP;
+import net.fakecraft.network.NetworkManager;
+import net.fakecraft.server.management.ServerConfigurationManager;
+import net.fakecraft.world.level.Level;
 import org.apache.logging.log4j.core.util.Integers;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
@@ -64,7 +64,7 @@ public class FMLNetworkHandler
         dispatcher.clientToServerHandshake();
     }
 
-    public static void openGui(EntityPlayer entityPlayer, Object mod, int modGuiId, World world, int x, int y, int z)
+    public static void openGui(EntityPlayer entityPlayer, Object mod, int modGuiId, Level world, int x, int y, int z)
     {
         ModContainer mc = FMLCommonHandler.instance().findContainerFor(mod);
         if (entityPlayer instanceof EntityPlayerMP)

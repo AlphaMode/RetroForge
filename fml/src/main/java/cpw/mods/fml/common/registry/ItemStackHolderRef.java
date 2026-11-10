@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import net.minecraft.item.ItemStack;
+import net.fakecraft.world.item.ItemInstance;
 
 import org.apache.logging.log4j.Level;
 
@@ -62,7 +62,7 @@ class ItemStackHolderRef {
 
     public void apply()
     {
-        ItemStack is;
+        ItemInstance is;
         try
         {
             is = GameRegistry.makeItemStack(itemName, meta, 1, serializednbt);

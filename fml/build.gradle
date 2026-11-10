@@ -49,6 +49,9 @@ dependencies {
 
     implementation(project(":fakecraft"))
     implementation(project(":knottweaker"))
+
+    implementation "net.fabricmc:mapping-io:${rootProject.mappingio_version}"
+    implementation "net.fabricmc:tiny-remapper:${rootProject.tinyremapper_version}"
 }
 
 processResources {

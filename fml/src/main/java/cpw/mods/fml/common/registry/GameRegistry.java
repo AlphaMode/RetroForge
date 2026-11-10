@@ -25,22 +25,20 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-
-import org.apache.logging.log4j.Level;
+import net.fakecraft.world.item.crafting.Recipe;
+import net.fakecraft.world.level.block.Block;
+import net.fakecraft.world.item.Item;
+import net.fakecraft.world.item.ItemBlock;
+import net.fakecraft.world.item.ItemInstance;
+import net.fakecraft.world.item.crafting.Recipes;
+import net.fakecraft.world.item.crafting.FurnaceRecipes;
+import net.fakecraft.nbt.JsonToNBT;
+import net.fakecraft.nbt.NBTBase;
+import net.fakecraft.nbt.NBTException;
+import net.fakecraft.nbt.NBTTagCompound;
+import net.fakecraft.tileentity.TileEntity;
+import net.fakecraft.world.level.Level;
+import net.fakecraft.world.chunk.IChunkProvider;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -94,7 +92,7 @@ public class GameRegistry
      * @param chunkGenerator
      * @param chunkProvider
      */
-    public static void generateWorld(int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
+    public static void generateWorld(int chunkX, int chunkZ, Level world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
     {
         if (sortedGeneratorList == null)
         {
@@ -132,7 +130,7 @@ public class GameRegistry
      * @param item The item to register
      * @param name The mod-unique name of the item
      */
-    public static void registerItem(net.minecraft.item.Item item, String name)
+    public static void registerItem(Item item, String name)
     {
         registerItem(item, name, null);
     }
@@ -235,45 +233,45 @@ public class GameRegistry
         }
         catch (Exception e)
         {
-            FMLLog.log(Level.ERROR, e, "Caught an exception during block registration");
+            FMLLog.log(org.apache.logging.log4j.Level.ERROR, e, "Caught an exception during block registration");
             throw new LoaderException(e);
         }
     }
 
-    public static void addRecipe(ItemStack output, Object... params)
+    public static void addRecipe(ItemInstance output, Object... params)
     {
         addShapedRecipe(output, params);
     }
 
-    public static IRecipe addShapedRecipe(ItemStack output, Object... params)
+    public static Recipe addShapedRecipe(ItemInstance output, Object... params)
     {
-        return CraftingManager.getInstance().addRecipe(output, params);
+        return Recipes.getInstance().addRecipe(output, params);
     }
 
-    public static void addShapelessRecipe(ItemStack output, Object... params)
+    public static void addShapelessRecipe(ItemInstance output, Object... params)
     {
-        CraftingManager.getInstance().addShapelessRecipe(output, params);
+        Recipes.getInstance().addShapelessRecipe(output, params);
     }
 
     @SuppressWarnings("unchecked")
-    public static void addRecipe(IRecipe recipe)
+    public static void addRecipe(Recipe recipe)
     {
-        CraftingManager.getInstance().getRecipeList().add(recipe);
+        Recipes.getInstance().getRecipeList().add(recipe);
     }
 
-    public static void addSmelting(Block input, ItemStack output, float xp)
+    public static void addSmelting(Block input, ItemInstance output, float xp)
     {
-        FurnaceRecipes.smelting().func_151393_a(input, output, xp);
+        FurnaceRecipes.instance().func_151393_a(input, output, xp);
     }
 
-    public static void addSmelting(Item input, ItemStack output, float xp)
+    public static void addSmelting(Item input, ItemInstance output, float xp)
     {
-        FurnaceRecipes.smelting().func_151396_a(input, output, xp);
+        FurnaceRecipes.instance().func_151396_a(input, output, xp);
     }
 
-    public static void addSmelting(ItemStack input, ItemStack output, float xp)
+    public static void addSmelting(ItemInstance input, ItemInstance output, float xp)
     {
-        FurnaceRecipes.smelting().func_151394_a(input, output, xp);
+        FurnaceRecipes.instance().func_151394_a(input, output, xp);
     }
 
     public static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id)
@@ -306,7 +304,7 @@ public class GameRegistry
     {
         fuelHandlers.add(handler);
     }
-    public static int getFuelValue(ItemStack itemStack)
+    public static int getFuelValue(ItemInstance itemStack)
     {
         int fuelValue = 0;
         for (IFuelHandler handler : fuelHandlers)
@@ -344,7 +342,7 @@ public class GameRegistry
      * @param name The name to register it under
      * @param itemStack The itemstack to register
      */
-    public static void registerCustomItemStack(String name, ItemStack itemStack)
+    public static void registerCustomItemStack(String name, ItemInstance itemStack)
     {
         GameData.registerCustomItemStack(name, itemStack);
     }
@@ -362,12 +360,12 @@ public class GameRegistry
      * @param stackSize The size of the stack returned
      * @return The custom itemstack or null if no such itemstack was found
      */
-    public static ItemStack findItemStack(String modId, String name, int stackSize)
+    public static ItemInstance findItemStack(String modId, String name, int stackSize)
     {
-        ItemStack foundStack = GameData.findItemStack(modId, name);
+        ItemInstance foundStack = GameData.findItemStack(modId, name);
         if (foundStack != null)
         {
-            ItemStack is = foundStack.copy();
+            ItemInstance is = foundStack.copy();
             is.stackSize = Math.min(stackSize, is.getMaxStackSize());
             return is;
         }
@@ -508,10 +506,10 @@ public class GameRegistry
     }
 
     /**
-     * Makes an {@link ItemStack} based on the itemName reference, with supplied meta, stackSize and nbt, if possible
+     * Makes an {@link ItemInstance} based on the itemName reference, with supplied meta, stackSize and nbt, if possible
      *
      * Will return null if the item doesn't exist (because it's not from a loaded mod for example)
-     * Will throw a {@link RuntimeException} if the nbtString is invalid for use in an {@link ItemStack}
+     * Will throw a {@link RuntimeException} if the nbtString is invalid for use in an {@link ItemInstance}
      *
      * @param itemName a registry name reference
      * @param meta the meta
@@ -519,15 +517,15 @@ public class GameRegistry
      * @param nbtString an nbt stack as a string, will be processed by {@link JsonToNBT}
      * @return a new itemstack
      */
-    public static ItemStack makeItemStack(String itemName, int meta, int stackSize, String nbtString)
+    public static ItemInstance makeItemStack(String itemName, int meta, int stackSize, String nbtString)
     {
         if (itemName == null) throw new IllegalArgumentException("The itemName cannot be null");
         Item item = GameData.getItemRegistry().getObject(itemName);
         if (item == null) {
-            FMLLog.getLogger().log(Level.TRACE, "Unable to find item with name {}", itemName);
+            FMLLog.getLogger().log(org.apache.logging.log4j.Level.TRACE, "Unable to find item with name {}", itemName);
             return null;
         }
-        ItemStack is = new ItemStack(item,1,meta);
+        ItemInstance is = new ItemInstance(item,1,meta);
         if (!Strings.isNullOrEmpty(nbtString)) {
             NBTBase nbttag = null;
             try
@@ -535,11 +533,11 @@ public class GameRegistry
                 nbttag = JsonToNBT.func_150315_a(nbtString);
             } catch (NBTException e)
             {
-                FMLLog.getLogger().log(Level.WARN, "Encountered an exception parsing ItemStack NBT string {}", nbtString, e);
+                FMLLog.getLogger().log(org.apache.logging.log4j.Level.WARN, "Encountered an exception parsing ItemStack NBT string {}", nbtString, e);
                 throw Throwables.propagate(e);
             }
             if (!(nbttag instanceof NBTTagCompound)) {
-                FMLLog.getLogger().log(Level.WARN, "Unexpected NBT string - multiple values {}", nbtString);
+                FMLLog.getLogger().log(org.apache.logging.log4j.Level.WARN, "Unexpected NBT string - multiple values {}", nbtString);
                 throw new RuntimeException("Invalid NBT JSON");
             } else {
                 is.setTagCompound((NBTTagCompound) nbttag);

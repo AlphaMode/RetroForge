@@ -23,7 +23,7 @@ public class FMLDeobfTweaker implements ITweaker {
         // Deobfuscation transformer, always last, and the access transformer tweaker as well
         if (!(Boolean) Launch.getBlackboard().get("fml.deobfuscatedEnvironment"))
         {
-//            classLoader.registerTransformer("cpw.mods.fml.common.asm.transformers.DeobfuscationTransformer");
+            classLoader.registerTransformer("cpw.mods.fml.common.asm.transformers.DeobfuscationTransformer");
         }
         // Add all the access transformers now as well
         for (String transformer : CoreModManager.getAccessTransformers())

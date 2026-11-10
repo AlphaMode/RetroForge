@@ -19,16 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 
+import cpw.mods.fml.common.*;
 import org.apache.logging.log4j.Level;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.LoaderException;
-import cpw.mods.fml.common.MetadataCollection;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.ModContainerFactory;
 import cpw.mods.fml.common.discovery.asm.ASMModParser;
 
 public class DirectoryDiscoverer implements ITypeDiscoverer
@@ -113,6 +109,7 @@ public class DirectoryDiscoverer implements ITypeDiscoverer
 
                 modParser.validate();
                 modParser.sendToTable(table, candidate);
+
                 ModContainer container = ModContainerFactory.instance().build(modParser, candidate.getModContainer(), candidate);
                 if (container!=null)
                 {

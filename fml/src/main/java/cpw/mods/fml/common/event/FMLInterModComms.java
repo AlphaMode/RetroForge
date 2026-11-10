@@ -12,8 +12,8 @@
 
 package cpw.mods.fml.common.event;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.fakecraft.world.item.ItemInstance;
+import net.fakecraft.nbt.NBTTagCompound;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;
@@ -118,9 +118,9 @@ public class FMLInterModComms {
             return (NBTTagCompound) value;
         }
 
-        public ItemStack getItemStackValue()
+        public ItemInstance getItemStackValue()
         {
-            return (ItemStack) value;
+            return (ItemInstance) value;
         }
 
         public Class<?> getMessageType()
@@ -135,7 +135,7 @@ public class FMLInterModComms {
 
         public boolean isItemStackMessage()
         {
-            return ItemStack.class.isAssignableFrom(getMessageType());
+            return ItemInstance.class.isAssignableFrom(getMessageType());
         }
 
         public boolean isNBTMessage()
@@ -148,7 +148,7 @@ public class FMLInterModComms {
     {
         return enqueueStartupMessage(modId, new IMCMessage(key, value));
     }
-    public static boolean sendMessage(String modId, String key, ItemStack value)
+    public static boolean sendMessage(String modId, String key, ItemInstance value)
     {
         return enqueueStartupMessage(modId, new IMCMessage(key, value));
     }
@@ -162,7 +162,7 @@ public class FMLInterModComms {
         enqueueMessage(sourceMod, modId, new IMCMessage(key, value));
     }
 
-    public static void sendRuntimeMessage(Object sourceMod, String modId, String key, ItemStack value)
+    public static void sendRuntimeMessage(Object sourceMod, String modId, String key, ItemInstance value)
     {
         enqueueMessage(sourceMod, modId, new IMCMessage(key, value));
     }

@@ -1,8 +1,8 @@
 package cpw.mods.fml.common.gameevent;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.world.World;
+import net.fakecraft.entity.player.EntityPlayer;
+import net.fakecraft.entity.player.EntityPlayerMP;
+import net.fakecraft.world.level.Level;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 
@@ -39,8 +39,8 @@ public class TickEvent extends Event {
     }
 
     public static class WorldTickEvent extends TickEvent {
-        public final World world;
-        public WorldTickEvent(Side side, Phase phase, World world)
+        public final Level world;
+        public WorldTickEvent(Side side, Phase phase, Level world)
         {
             super(Type.WORLD, side, phase);
             this.world = world;

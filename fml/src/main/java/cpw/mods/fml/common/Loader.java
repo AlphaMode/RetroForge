@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import me.alphamode.retroforge.asm.FakeCraftRemapper;
+import me.alphamode.retrolaunch.Launch;
 import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import org.apache.logging.log4j.Level;
 
@@ -161,6 +163,7 @@ public class Loader
     private ImmutableMap<String, String> fmlBrandingProperties;
     private File forcedModFile;
     private ModDiscoverer discoverer;
+    private FakeCraftRemapper modRemapper;
     private ProgressBar progressBar;
 
     public static Loader instance()
@@ -188,7 +191,7 @@ public class Loader
 
     private Loader()
     {
-        modClassLoader = new ModClassLoader(FabricLauncherBase.getLauncher());
+        modClassLoader = new ModClassLoader(Launch.classLoader);
         if (!mccversion.equals(MC_VERSION))
         {
             FMLLog.severe("This version of FML is built for Minecraft %s, we have detected Minecraft %s in your minecraft jar file", mccversion, MC_VERSION);
@@ -414,6 +417,7 @@ public class Loader
             canonicalConfigPath = configDir.getCanonicalPath();
             canonicalConfigDir = configDir.getCanonicalFile();
             canonicalModsDir = modsDir.getCanonicalFile();
+            modRemapper = new FakeCraftRemapper(new File(minecraftDir, "remapped_mods").toPath());
         }
         catch (IOException ioe)
         {
@@ -464,6 +468,10 @@ public class Loader
     public List<ModContainer> getModList()
     {
         return instance().mods != null ? ImmutableList.copyOf(instance().mods) : ImmutableList.<ModContainer>of();
+    }
+
+    public FakeCraftRemapper getRetroRemapper() {
+        return modRemapper;
     }
 
     /**

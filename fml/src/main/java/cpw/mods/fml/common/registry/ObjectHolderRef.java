@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Level;
 import com.google.common.base.Throwables;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
+import net.fakecraft.world.level.block.Block;
+import net.fakecraft.init.Blocks;
+import net.fakecraft.world.item.Item;
 
 
 /**

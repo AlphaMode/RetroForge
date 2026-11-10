@@ -3,7 +3,7 @@ package cpw.mods.fml.common.network;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.Map.Entry;
-import net.minecraft.network.Packet;
+import net.fakecraft.network.Packet;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget;

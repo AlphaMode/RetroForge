@@ -1,14 +1,12 @@
 package me.alphamode.retrolaunch;
 
 import net.fabricmc.loader.impl.launch.FabricLauncher;
+import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LaunchClassLoader {
     private final FabricLauncher launcher;
@@ -30,8 +28,12 @@ public class LaunchClassLoader {
                 renameTransformer = (IClassNameTransformer) transformer;
             }
         } catch (Exception e) {
-//            LogWrapper.log(Level.ERROR, e, "A critical problem occurred registering the ASM transformer class %s", transformerClassName);
+            LogWrapper.log(Level.ERROR, e, "A critical problem occurred registering the ASM transformer class %s", transformerClassName);
         }
+    }
+
+    public List<IClassTransformer> getTransformers() {
+        return Collections.unmodifiableList(transformers);
     }
 
     public void addClassLoaderExclusion(String toExclude) {
@@ -60,5 +62,9 @@ public class LaunchClassLoader {
 
     public byte[] getClassBytes(String name) throws IOException {
         return launcher.getClassByteArray(name, false);
+    }
+
+    public FabricLauncher getLauncher() {
+        return launcher;
     }
 }

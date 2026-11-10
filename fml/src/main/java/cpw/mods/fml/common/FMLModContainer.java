@@ -87,7 +87,7 @@ public class FMLModContainer implements ModContainer
     public FMLModContainer(String className, ModCandidate container, Map<String,Object> modDescriptor)
     {
         this.className = className;
-        this.source = container.getModContainer();
+        this.source = Loader.instance().getRetroRemapper().remap(container.getModContainer().toPath()).toFile();
         this.candidate = container;
         this.descriptor = modDescriptor;
         this.eventMethods = ArrayListMultimap.create();

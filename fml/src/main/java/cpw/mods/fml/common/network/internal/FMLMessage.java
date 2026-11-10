@@ -2,7 +2,7 @@ package cpw.mods.fml.common.network.internal;
 
 import io.netty.buffer.ByteBuf;
 
-import net.minecraft.entity.Entity;
+import net.fakecraft.entity.Entity;
 import cpw.mods.fml.common.network.ByteBufUtils;
 //import cpw.mods.fml.common.registry.EntityRegistry.EntityRegistration;
 import cpw.mods.fml.relauncher.Side;

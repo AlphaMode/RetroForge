@@ -2,8 +2,8 @@ package cpw.mods.fml.common.event;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.fakecraft.world.item.Item;
+import net.fakecraft.world.level.block.Block;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ListMultimap;

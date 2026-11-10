@@ -30,10 +30,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StringTranslate;
+import net.fakecraft.world.level.block.Block;
+import net.fakecraft.world.item.Item;
+import net.fakecraft.world.item.ItemInstance;
+import net.fakecraft.util.StringTranslate;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
@@ -134,8 +134,8 @@ public class LanguageRegistry
             objectName=((Item)objectToName).getUnlocalizedName();
         } else if (objectToName instanceof Block) {
             objectName=((Block)objectToName).getUnlocalizedName();
-        } else if (objectToName instanceof ItemStack) {
-            objectName=((ItemStack)objectToName).getItem().getUnlocalizedName((ItemStack)objectToName);
+        } else if (objectToName instanceof ItemInstance) {
+            objectName=((ItemInstance)objectToName).getItem().getUnlocalizedName((ItemInstance)objectToName);
         } else {
             throw new IllegalArgumentException(String.format("Illegal object for naming %s",objectToName));
         }

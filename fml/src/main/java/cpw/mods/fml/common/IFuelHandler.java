@@ -12,9 +12,9 @@
 
 package cpw.mods.fml.common;
 
-import net.minecraft.item.ItemStack;
+import net.fakecraft.world.item.ItemInstance;
 
 public interface IFuelHandler
 {
-    int getBurnTime(ItemStack fuel);
+    int getBurnTime(ItemInstance fuel);
 }

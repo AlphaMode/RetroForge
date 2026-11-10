@@ -11,11 +11,11 @@ import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ObjectIntIdentityMap;
-import net.minecraft.util.RegistryNamespaced;
+import net.fakecraft.world.level.block.Block;
+import net.fakecraft.world.item.Item;
+import net.fakecraft.world.item.ItemBlock;
+import net.fakecraft.util.ObjectIntIdentityMap;
+import net.fakecraft.util.RegistryNamespaced;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

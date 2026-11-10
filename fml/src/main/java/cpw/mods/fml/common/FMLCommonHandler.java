@@ -20,22 +20,21 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetworkManager;
+import net.fakecraft.crash.CrashReport;
+import net.fakecraft.crash.CrashReportCategory;
+import net.fakecraft.entity.item.EntityItem;
+import net.fakecraft.entity.player.EntityPlayer;
+import net.fakecraft.inventory.IInventory;
+import net.fakecraft.world.item.ItemInstance;
+import net.fakecraft.nbt.NBTBase;
+import net.fakecraft.nbt.NBTTagCompound;
+import net.fakecraft.network.INetHandler;
+import net.fakecraft.network.NetworkManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.SaveHandler;
-import net.minecraft.world.storage.WorldInfo;
+import net.fakecraft.world.level.Level;
+import net.fakecraft.world.storage.SaveHandler;
+import net.fakecraft.world.storage.WorldInfo;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import com.google.common.base.Joiner;
@@ -102,10 +101,10 @@ public class FMLCommonHandler
     public void beginLoading(IFMLSidedHandler handler)
     {
         sidedDelegate = handler;
-        FMLLog.log("MinecraftForge", Level.INFO, "Attempting early MinecraftForge initialization");
+        FMLLog.log("MinecraftForge", org.apache.logging.log4j.Level.INFO, "Attempting early MinecraftForge initialization");
         callForgeMethod("initialize");
         callForgeMethod("registerCrashCallable");
-        FMLLog.log("MinecraftForge", Level.INFO, "Completed early MinecraftForge initialization");
+        FMLLog.log("MinecraftForge", org.apache.logging.log4j.Level.INFO, "Completed early MinecraftForge initialization");
     }
 
     /**
@@ -164,7 +163,7 @@ public class FMLCommonHandler
      */
     public void raiseException(Throwable exception, String message, boolean stopGame)
     {
-        FMLLog.log(Level.ERROR, exception, "Something raised an exception. The message was '%s'. 'stopGame' is %b", message, stopGame);
+        FMLLog.log(org.apache.logging.log4j.Level.ERROR, exception, "Something raised an exception. The message was '%s'. 'stopGame' is %b", message, stopGame);
         if (stopGame)
         {
             getSidedDelegate().haltGame(message,exception);
@@ -250,7 +249,7 @@ public class FMLCommonHandler
     /**
      * Every tick just after world and other ticks occur
      */
-    public void onPostWorldTick(World world)
+    public void onPostWorldTick(Level world)
     {
         bus().post(new TickEvent.WorldTickEvent(Side.SERVER, Phase.END, world));
     }
@@ -263,7 +262,7 @@ public class FMLCommonHandler
     /**
      * Every tick just before world and other ticks occur
      */
-    public void onPreWorldTick(World world)
+    public void onPreWorldTick(Level world)
     {
         bus().post(new TickEvent.WorldTickEvent(Side.SERVER, Phase.START, world));
     }
@@ -565,12 +564,12 @@ public class FMLCommonHandler
         bus().post(new PlayerEvent.ItemPickupEvent(player, item));
     }
 
-    public void firePlayerCraftingEvent(EntityPlayer player, ItemStack crafted, IInventory craftMatrix)
+    public void firePlayerCraftingEvent(EntityPlayer player, ItemInstance crafted, IInventory craftMatrix)
     {
         bus().post(new PlayerEvent.ItemCraftedEvent(player, crafted, craftMatrix));
     }
 
-    public void firePlayerSmeltedEvent(EntityPlayer player, ItemStack smelted)
+    public void firePlayerSmeltedEvent(EntityPlayer player, ItemInstance smelted)
     {
         bus().post(new PlayerEvent.ItemSmeltedEvent(player, smelted));
     }
@@ -610,18 +609,18 @@ public class FMLCommonHandler
      */
     public void exitJava(int exitCode, boolean hardExit)
     {
-        FMLLog.log(Level.INFO, "Java has been asked to exit (code %d) by %s.", exitCode, Thread.currentThread().getStackTrace()[1]);
+        FMLLog.log(org.apache.logging.log4j.Level.INFO, "Java has been asked to exit (code %d) by %s.", exitCode, Thread.currentThread().getStackTrace()[1]);
         if (hardExit)
         {
-            FMLLog.log(Level.INFO, "This is an abortive exit and could cause world corruption or other things");
+            FMLLog.log(org.apache.logging.log4j.Level.INFO, "This is an abortive exit and could cause world corruption or other things");
         }
         if (Boolean.parseBoolean(System.getProperty("fml.debugExit", "false")))
         {
-            FMLLog.log(Level.INFO, new Throwable(), "Exit trace");
+            FMLLog.log(org.apache.logging.log4j.Level.INFO, new Throwable(), "Exit trace");
         }
         else
         {
-            FMLLog.log(Level.INFO, "If this was an unexpected exit, use -Dfml.debugExit=true as a JVM argument to find out where it was called");
+            FMLLog.log(org.apache.logging.log4j.Level.INFO, "If this was an unexpected exit, use -Dfml.debugExit=true as a JVM argument to find out where it was called");
         }
         if (hardExit)
         {

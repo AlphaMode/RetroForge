@@ -16,9 +16,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.network.NetworkManager;
+import net.fakecraft.network.INetHandler;
+import net.fakecraft.network.NetHandlerPlayServer;
+import net.fakecraft.network.NetworkManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
 

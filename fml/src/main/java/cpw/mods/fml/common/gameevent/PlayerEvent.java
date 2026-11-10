@@ -1,9 +1,9 @@
 package cpw.mods.fml.common.gameevent;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.fakecraft.entity.item.EntityItem;
+import net.fakecraft.entity.player.EntityPlayer;
+import net.fakecraft.inventory.IInventory;
+import net.fakecraft.world.item.ItemInstance;
 import cpw.mods.fml.common.eventhandler.Event;
 
 public class PlayerEvent extends Event {
@@ -23,9 +23,9 @@ public class PlayerEvent extends Event {
     }
 
     public static class ItemCraftedEvent extends PlayerEvent {
-        public final ItemStack crafting;
+        public final ItemInstance crafting;
         public final IInventory craftMatrix;
-        public ItemCraftedEvent(EntityPlayer player, ItemStack crafting, IInventory craftMatrix)
+        public ItemCraftedEvent(EntityPlayer player, ItemInstance crafting, IInventory craftMatrix)
         {
             super(player);
             this.crafting = crafting;
@@ -33,8 +33,8 @@ public class PlayerEvent extends Event {
         }
     }
     public static class ItemSmeltedEvent extends PlayerEvent {
-        public final ItemStack smelting;
-        public ItemSmeltedEvent(EntityPlayer player, ItemStack crafting)
+        public final ItemInstance smelting;
+        public ItemSmeltedEvent(EntityPlayer player, ItemInstance crafting)
         {
             super(player);
             this.smelting = crafting;

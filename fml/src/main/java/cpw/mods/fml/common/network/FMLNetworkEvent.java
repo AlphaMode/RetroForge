@@ -2,10 +2,10 @@ package cpw.mods.fml.common.network;
 
 import java.util.Set;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.network.play.INetHandlerPlayServer;
+import net.fakecraft.network.INetHandler;
+import net.fakecraft.network.NetworkManager;
+import net.fakecraft.network.play.INetHandlerPlayClient;
+import net.fakecraft.network.play.INetHandlerPlayServer;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;

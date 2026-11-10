@@ -21,13 +21,12 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import org.apache.logging.log4j.Level;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
-import net.minecraft.network.INetHandler;
-import net.minecraft.world.World;
+import net.fakecraft.entity.player.EntityPlayer;
+import net.fakecraft.entity.player.EntityPlayerMP;
+import net.fakecraft.inventory.Container;
+import net.fakecraft.network.INetHandler;
+import net.fakecraft.world.level.Level;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -216,7 +215,7 @@ public enum NetworkRegistry
         ModContainer mc = FMLCommonHandler.instance().findContainerFor(mod);
         if (mc == null)
         {
-            FMLLog.log(Level.ERROR, "Mod of type %s attempted to register a gui network handler during a construction phase", mod.getClass().getName());
+            FMLLog.log(org.apache.logging.log4j.Level.ERROR, "Mod of type %s attempted to register a gui network handler during a construction phase", mod.getClass().getName());
             throw new RuntimeException("Invalid attempt to create a GUI during mod construction. Use an EventHandler instead");
         }
         serverGuiHandlers.put(mc, handler);
@@ -234,7 +233,7 @@ public enum NetworkRegistry
      * @param z Z coord
      * @return The server side GUI object (An instance of {@link Container})
      */
-    public Container getRemoteGuiContainer(ModContainer mc, EntityPlayerMP player, int modGuiId, World world, int x, int y, int z)
+    public Container getRemoteGuiContainer(ModContainer mc, EntityPlayerMP player, int modGuiId, Level world, int x, int y, int z)
     {
         IGuiHandler handler = serverGuiHandlers.get(mc);
 
@@ -259,7 +258,7 @@ public enum NetworkRegistry
      * @param z Z coord
      * @return The client side GUI object (An instance of {@link GUI})
      */
-    public Object getLocalGuiContainer(ModContainer mc, EntityPlayer player, int modGuiId, World world, int x, int y, int z)
+    public Object getLocalGuiContainer(ModContainer mc, EntityPlayer player, int modGuiId, Level world, int x, int y, int z)
     {
         IGuiHandler handler = clientGuiHandlers.get(mc);
         return handler.getClientGuiElement(modGuiId, player, world, x, y, z);
