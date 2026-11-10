@@ -1,4 +1,4 @@
-package net.fakecraft.nbt;
+package com.mojang.nbt;
 
 import java.io.IOException;
 

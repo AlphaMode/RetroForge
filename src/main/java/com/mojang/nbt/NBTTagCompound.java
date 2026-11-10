@@ -1,6 +1,6 @@
-package net.fakecraft.nbt;
+package com.mojang.nbt;
 
-public class NBTTagCompound extends NBTBase {
+public class NBTTagCompound extends Tag {
     public int getInteger(String dimension) {
         return -1;
     }
@@ -8,7 +8,7 @@ public class NBTTagCompound extends NBTBase {
     public void setString(String modId, String modId1) {
     }
 
-    public void setTag(String modList, NBTBase list) {
+    public void setTag(String modList, Tag list) {
     }
 
     public void setInteger(String v, Integer value) {

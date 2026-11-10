@@ -13,7 +13,7 @@
 package cpw.mods.fml.common.event;
 
 import net.fakecraft.world.item.ItemInstance;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagCompound;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;

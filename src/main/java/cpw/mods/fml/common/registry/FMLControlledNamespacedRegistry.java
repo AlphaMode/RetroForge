@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.fakecraft.world.item.TileItem;
 import org.apache.logging.log4j.Level;
 
 import net.fakecraft.world.level.block.Block;
 import net.fakecraft.world.item.Item;
-import net.fakecraft.world.item.ItemBlock;
 import net.fakecraft.util.ObjectIntIdentityMap;
-import net.fakecraft.util.RegistryNamespaced;
+import net.fakecraft.util.MappedRegistry;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -28,7 +28,7 @@ import cpw.mods.fml.common.registry.RegistryDelegate.Delegate;
 
 import static net.minecraft.util.datafix.schemas.NamespacedSchema.ensureNamespaced;
 
-public class FMLControlledNamespacedRegistry<I> extends RegistryNamespaced<I> {
+public class FMLControlledNamespacedRegistry<I> extends MappedRegistry<I> {
     public static final boolean DEBUG = Boolean.parseBoolean(System.getProperty("fml.debugRegistryEntries", "false"));
     private final Class<I> superType;
     private String optionalDefaultName;
@@ -82,9 +82,9 @@ public class FMLControlledNamespacedRegistry<I> extends RegistryNamespaced<I> {
             // entry is blocked, thus should be empty
             if (blockedIds.contains(id)) throw new IllegalStateException(String.format("Registry entry for %s %s, id %d, name %s, marked as dangling.", type, obj, id, name));
 
-            if (obj instanceof ItemBlock)
+            if (obj instanceof TileItem)
             {
-                Block block = ((ItemBlock) obj).field_150939_a;
+                Block block = ((TileItem) obj).field_150939_a;
 
                 // verify matching block entry
                 if (iBlockRegistry.getId(block) != id)

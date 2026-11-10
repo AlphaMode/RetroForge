@@ -25,17 +25,17 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import net.fakecraft.world.item.TileItem;
 import net.fakecraft.world.item.crafting.Recipe;
 import net.fakecraft.world.level.block.Block;
 import net.fakecraft.world.item.Item;
-import net.fakecraft.world.item.ItemBlock;
 import net.fakecraft.world.item.ItemInstance;
 import net.fakecraft.world.item.crafting.Recipes;
 import net.fakecraft.world.item.crafting.FurnaceRecipes;
-import net.fakecraft.nbt.JsonToNBT;
-import net.fakecraft.nbt.NBTBase;
-import net.fakecraft.nbt.NBTException;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.JsonToNBT;
+import com.mojang.nbt.Tag;
+import com.mojang.nbt.NBTException;
+import com.mojang.nbt.NBTTagCompound;
 import net.fakecraft.tileentity.TileEntity;
 import net.fakecraft.world.level.Level;
 import net.fakecraft.world.chunk.IChunkProvider;
@@ -172,7 +172,7 @@ public class GameRegistry
      */
     public static Block registerBlock(Block block, String name)
     {
-        return registerBlock(block, ItemBlock.class, name);
+        return registerBlock(block, TileItem.class, name);
     }
 
     /**
@@ -181,7 +181,7 @@ public class GameRegistry
      * @param itemclass The item type to register with it : null registers a block without associated item.
      * @param name The mod-unique name to register it as, will get prefixed by your modid.
      */
-    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name)
+    public static Block registerBlock(Block block, Class<? extends TileItem> itemclass, String name)
     {
         return registerBlock(block, itemclass, name, new Object[]{});
     }
@@ -190,7 +190,7 @@ public class GameRegistry
      * @deprecated Use the registerBlock version without the modId parameter instead.
      */
     @Deprecated
-    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name, String modId, Object... itemCtorArgs)
+    public static Block registerBlock(Block block, Class<? extends TileItem> itemclass, String name, String modId, Object... itemCtorArgs)
     {
         return registerBlock(block, itemclass, name, itemCtorArgs);
     }
@@ -202,7 +202,7 @@ public class GameRegistry
      * @param name The mod-unique name to register it as, will get prefixed by your modid.
      * @param itemCtorArgs Arguments to pass (after the required {@code Block} parameter) to the ItemBlock constructor (optional).
      */
-    public static Block registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name, Object... itemCtorArgs)
+    public static Block registerBlock(Block block, Class<? extends TileItem> itemclass, String name, Object... itemCtorArgs)
     {
         if (Loader.instance().isInState(LoaderState.CONSTRUCTING))
         {
@@ -211,7 +211,7 @@ public class GameRegistry
         try
         {
             assert block != null : "registerBlock: block cannot be null";
-            ItemBlock i = null;
+            TileItem i = null;
             if (itemclass != null)
             {
                 Class<?>[] ctorArgClasses = new Class<?>[itemCtorArgs.length + 1];
@@ -220,7 +220,7 @@ public class GameRegistry
                 {
                     ctorArgClasses[idx] = itemCtorArgs[idx-1].getClass();
                 }
-                Constructor<? extends ItemBlock> itemCtor = itemclass.getConstructor(ctorArgClasses);
+                Constructor<? extends TileItem> itemCtor = itemclass.getConstructor(ctorArgClasses);
                 i = itemCtor.newInstance(ObjectArrays.concat(block, itemCtorArgs));
             }
             // block registration has to happen first
@@ -527,7 +527,7 @@ public class GameRegistry
         }
         ItemInstance is = new ItemInstance(item,1,meta);
         if (!Strings.isNullOrEmpty(nbtString)) {
-            NBTBase nbttag = null;
+            Tag nbttag = null;
             try
             {
                 nbttag = JsonToNBT.func_150315_a(nbtString);

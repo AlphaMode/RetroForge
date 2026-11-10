@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import net.fakecraft.nbt.NBTBase;
-import net.fakecraft.nbt.NBTTagCompound;
-import net.fakecraft.nbt.NBTTagList;
+import com.mojang.nbt.Tag;
+import com.mojang.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagList;
 import net.fakecraft.world.storage.SaveHandler;
 import net.fakecraft.world.storage.WorldInfo;
 
@@ -157,7 +157,7 @@ public class FMLContainer extends DummyModContainer implements WorldAccessContai
     }
 
     @Override
-    public void readData(SaveHandler handler, WorldInfo info, Map<String, NBTBase> propertyMap, NBTTagCompound tag)
+    public void readData(SaveHandler handler, WorldInfo info, Map<String, Tag> propertyMap, NBTTagCompound tag)
     {
         if (tag.hasKey("ModList"))
         {

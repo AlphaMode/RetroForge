@@ -25,8 +25,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import net.fakecraft.world.item.Item;
+import net.fakecraft.world.item.TileItem;
 import net.fakecraft.world.level.block.Block;
-import net.fakecraft.world.item.ItemBlock;
 import net.fakecraft.world.item.ItemInstance;
 
 import org.apache.logging.log4j.Level;
@@ -294,7 +294,7 @@ public class GameData {
                     itemsToRemove.add(itemName);
                     blockThisId = true;
                 }
-                else if (item instanceof ItemBlock)
+                else if (item instanceof TileItem)
                 {
                     if (dataList.containsKey(blockName)) // the item was an ItemBlock before
                     {
@@ -531,7 +531,7 @@ public class GameData {
                                     currId,
                                     isBlock ? newData.iBlockRegistry.getRaw(newId) : newData.iItemRegistry.getRaw(newId),
                                     newData.blockedIds.contains(newId),
-                                    isBlock ? false : (getMain().iItemRegistry.getRaw(currId) instanceof ItemBlock)));
+                                    isBlock ? false : (getMain().iItemRegistry.getRaw(currId) instanceof TileItem)));
                 }
             }
         }
@@ -814,9 +814,9 @@ public class GameData {
 
     private int registerItem(Item item, String name, int idHint)
     {
-        if (item instanceof ItemBlock) // ItemBlock, adjust id and clear the slot already occupied by the corresponding block
+        if (item instanceof TileItem) // ItemBlock, adjust id and clear the slot already occupied by the corresponding block
         {
-            Block block = ((ItemBlock) item).field_150939_a;
+            Block block = ((TileItem) item).field_150939_a;
             if (idHint != -1 && getMain().blockSubstitutions.containsKey(name))
             {
                 block = getMain().blockSubstitutions.get(name);
@@ -848,10 +848,10 @@ public class GameData {
 
         int itemId = iItemRegistry.add(idHint, name, item, availabilityMap);
 
-        if (item instanceof ItemBlock) // verify
+        if (item instanceof TileItem) // verify
         {
             if (itemId != idHint) throw new IllegalStateException(String.format("ItemBlock at block id %d insertion failed, got id %d.", idHint, itemId));
-            verifyItemBlockName((ItemBlock) item);
+            verifyItemBlockName((TileItem) item);
         }
 
         // block the Block Registry slot with the same id
@@ -872,13 +872,13 @@ public class GameData {
     private int registerBlock(Block block, String name, int idHint)
     {
         // handle ItemBlock-before-Block registrations
-        ItemBlock itemBlock = null;
+        TileItem itemBlock = null;
 
         for (Item item : iItemRegistry.typeSafeIterable()) // find matching ItemBlock
         {
-            if (item instanceof ItemBlock && ((ItemBlock) item).field_150939_a == block)
+            if (item instanceof TileItem && ((TileItem) item).field_150939_a == block)
             {
-                itemBlock = (ItemBlock) item;
+                itemBlock = (TileItem) item;
                 break;
             }
         }
@@ -976,7 +976,7 @@ public class GameData {
         return name;
     }
 
-    private void verifyItemBlockName(ItemBlock item)
+    private void verifyItemBlockName(TileItem item)
     {
         String blockName = iBlockRegistry.getNameForObject(item.field_150939_a);
         String itemName = iItemRegistry.getNameForObject(item);

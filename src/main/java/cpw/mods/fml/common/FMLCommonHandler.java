@@ -26,8 +26,8 @@ import net.fakecraft.entity.item.EntityItem;
 import net.fakecraft.entity.player.EntityPlayer;
 import net.fakecraft.inventory.IInventory;
 import net.fakecraft.world.item.ItemInstance;
-import net.fakecraft.nbt.NBTBase;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.Tag;
+import com.mojang.nbt.NBTTagCompound;
 import net.fakecraft.network.INetHandler;
 import net.fakecraft.network.NetworkManager;
 import net.minecraft.server.MinecraftServer;
@@ -390,7 +390,7 @@ public class FMLCommonHandler
         }
         handlerSet.add(handler);
         handlerToCheck = new WeakReference<SaveHandler>(handler); // for confirmBackupLevelDatUse
-        Map<String,NBTBase> additionalProperties = Maps.newHashMap();
+        Map<String, Tag> additionalProperties = Maps.newHashMap();
         worldInfo.setAdditionalProperties(additionalProperties);
         for (ModContainer mc : Loader.instance().getModList())
         {

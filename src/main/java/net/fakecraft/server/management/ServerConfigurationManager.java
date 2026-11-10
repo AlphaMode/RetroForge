@@ -1,7 +1,7 @@
 package net.fakecraft.server.management;
 
 import net.fakecraft.entity.player.EntityPlayerMP;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagCompound;
 import net.fakecraft.network.NetHandlerPlayServer;
 import net.fakecraft.network.NetworkManager;
 

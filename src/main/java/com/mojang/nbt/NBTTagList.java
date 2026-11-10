@@ -1,6 +1,6 @@
-package net.fakecraft.nbt;
+package com.mojang.nbt;
 
-public class NBTTagList extends NBTBase {
+public class NBTTagList extends Tag {
     public void appendTag(NBTTagCompound mod) {
     }
 

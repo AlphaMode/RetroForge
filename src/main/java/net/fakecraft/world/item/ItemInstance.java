@@ -1,7 +1,7 @@
 package net.fakecraft.world.item;
 
 import net.fakecraft.world.level.block.Block;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagCompound;
 
 public class ItemInstance {
     public int stackSize;

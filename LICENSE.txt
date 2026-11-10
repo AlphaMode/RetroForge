@@ -1,2 +1,5 @@
 Copyright (c) 2026 AlphaMode
 All rights reserved.
+
+Due to the nature of people AI forking my projects, and reuploading them without credit.
+This project is under ARR until I figure out how to deal with this.

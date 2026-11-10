@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class RegistryNamespaced<T> {
-    protected ObjectIntIdentityMap underlyingIntegerMap;
+public class MappedRegistry<T> {
+    protected ObjectIntIdentityMap<T> underlyingIntegerMap = new ObjectIntIdentityMap<>();
     protected List<T> registryObjects;
     protected Map<T, T> field_148758_b;
 
@@ -34,6 +34,6 @@ public class RegistryNamespaced<T> {
     }
 
     public Iterator<T> iterator() {
-        return null;
+        return underlyingIntegerMap.iterator();
     }
 }

@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.Level;
 
 import net.fakecraft.entity.player.EntityPlayerMP;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagCompound;
 import net.fakecraft.network.EnumConnectionState;
 import net.fakecraft.network.INetHandler;
 import net.fakecraft.network.NetHandlerPlayServer;

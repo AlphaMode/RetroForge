@@ -2,7 +2,7 @@ package cpw.mods.fml.common.network;
 
 import java.io.IOException;
 import net.fakecraft.world.item.ItemInstance;
-import net.fakecraft.nbt.NBTTagCompound;
+import com.mojang.nbt.NBTTagCompound;
 import net.fakecraft.network.PacketBuffer;
 import org.apache.commons.lang3.Validate;
 

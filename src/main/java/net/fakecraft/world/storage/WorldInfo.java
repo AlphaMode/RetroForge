@@ -1,6 +1,6 @@
 package net.fakecraft.world.storage;
 
-import net.fakecraft.nbt.NBTBase;
+import com.mojang.nbt.Tag;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ public class WorldInfo {
         return null;
     }
 
-    public void setAdditionalProperties(Map<String, NBTBase> additionalProperties) {
+    public void setAdditionalProperties(Map<String, Tag> additionalProperties) {
 
     }
 }
